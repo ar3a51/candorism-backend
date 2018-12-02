@@ -15,7 +15,8 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.16.4",
-    "mongoose": "^5.3.12"
+    "mongoose": "^5.3.12",
+    "swagger-ui-express": "^4.0.1"
   },
   "devDependencies": {
     "@babel/cli": "^7.1.5",

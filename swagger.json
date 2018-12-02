@@ -1,0 +1,38 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "1.0.0",
+        "title": "Candorism Backend API",
+        "description": ""
+    },
+    "schemes": [
+        "http",
+        "https"
+    ],
+    "basepath": "/",
+    "paths": {
+        "/user": {
+            "get": {
+                "summary": "Get user details",
+                "parameters": [{
+                    "name": "username"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "login details",
+                        "schema": {
+                            "type": "object",
+                            "items": {
+                                "properties": {
+                                    "username": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

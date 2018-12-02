@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 import express from 'express';
+import swaggerUi from 'swagger-ui-express';
 
 import userRoutes  from './routes/user/userRoutes';
 import postRoutes from './routes/post/postRoutes';
@@ -7,6 +8,7 @@ import replyRoutes from './routes/post/replyRoutes';
 
 const app = express();
 const portNumber = 3030;
+const swaggerDocument = require("../swagger.json");
 
 
 
@@ -23,6 +25,8 @@ app.use(express.json());
 app.get("/",(req, res)=>{
     res.send("hello world");
 });
+
+app.use('/api-docs',swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.use("/user",userRoutes);
 app.use("/post", postRoutes);
