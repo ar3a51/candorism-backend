@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 
 const userDetailsSchema = mongoose.Schema({
+    username: "string",
     firstname: "string",
     middlename: {
         type: "string",

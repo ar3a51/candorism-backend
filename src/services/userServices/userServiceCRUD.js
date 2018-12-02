@@ -8,7 +8,15 @@ export class UserServiceCRUD {
 
     async registerUser(user) {
 
+        let userModel = new UserModel({
+            username: user.username,
+            password: username.password,
+        });
+
+       let userModelResult = await userModel.save();
+
         let userDetailsModel = new UserDetailsModel({
+            username: userModelResult.username,
             firstname: user.firstname,
             middlename: user.middlename,
             lastname: user.lastname,
@@ -21,13 +29,7 @@ export class UserServiceCRUD {
 
         let userDetailsModelResult = await userDetailsModel.save();
 
-        let userModel = new UserModel({
-            userDetails_id: userDetailsModelResult._id,
-            username: user.username,
-            password: username.password,
-        });
-
-       let userModelResult = await userModel.save();
+      
 
        return userModelResult;
     }

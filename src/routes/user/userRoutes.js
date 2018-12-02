@@ -39,4 +39,18 @@ userRoutes.post("/", async (req, res)=> {
     }
 });
 
+userRoutes.get("/userdetails/:id", async(req,res) => {
+
+    try{
+        let userQuery = new UserServiceQuery();
+
+        let result = await userQuery.getUserDetailsById(req.params.id);
+
+        return result;
+    } catch (ex){
+        res.sendStatus(500).send(ex);
+    }
+
+});
+
 module.exports = userRoutes;

@@ -5,14 +5,10 @@ export class UserServiceQuery {
     constructor (){}
 
    async getUserByUsername(user) {
-        let result = await UserModel.find({"username": user.username});
-
-        return result;
+        return await UserModel.find({"username": user.username});
     }
 
-   async getUserDetailsById(id) {
-       let result = await UserDetailsModel.findById(id);
-
-       return result;
+   async getUserDetailsByUsername(user) {
+      return await UserDetailsModel.find({"username":user.username});
    }
 }

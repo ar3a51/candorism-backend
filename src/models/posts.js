@@ -1,9 +1,7 @@
 import mongoose from 'mongoose';
 
 let postsSchema = mongoose.Schema({
-    user: { 
-            username: "string",
-    },
+    username: "string",
     message: "string",
     dateTime: "Date",
 });
