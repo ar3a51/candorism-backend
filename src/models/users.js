@@ -1,19 +1,10 @@
 import mongoose from 'mongoose';
+import { ObjectID } from 'bson';
 
 const userSchema = mongoose.Schema({
+    userDetails_id: ObjectID,
     username: "string",
-    firstname: "string",
     password: "string",
-    middlename: {
-        type: "string",
-        required: false,
-    },
-    lastname: "string",
-    photoprofile: "Buffer",
-    address1: "string",
-    address2: "string",
-    suburb: "string",
-    postcode: "string"
 });
 
 export const UserModel = mongoose.model("users",userSchema);

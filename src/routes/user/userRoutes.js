@@ -1,12 +1,14 @@
 import express from 'express';
 
-import { UserModel } from '../../models/users';
+import { UserServiceQuery }     from '../../services/userServices/userServiceQuery';
+import { UserServiceCRUD}       from '../../services/userServices/userServiceCRUD';
 
 const userRoutes = express.Router();
 
-userRoutes.get("/:id", async(req, res) => {
+userRoutes.get("/:username", async(req, res) => {
 
-    let result = await UserModel.findById(req.params.id)
+    let userService = new UserServiceQuery();
+    let result = await userService.getUserByUsername(req.params.username)
     if (result)
         res.send(result);
     else
@@ -14,9 +16,10 @@ userRoutes.get("/:id", async(req, res) => {
 });
 
 userRoutes.post("/", async (req, res)=> {
-    let user = new UserModel({
 
+    let user = {
         username: req.body.username,
+        password: req.body.password,
         firstname: req.body.firstname,
         middlename: req.body.middlename,
         lastname: req.body.lastname,
@@ -24,9 +27,16 @@ userRoutes.post("/", async (req, res)=> {
         address2: req.body.address2,
         suburb: req.body.suburb,
         postcode: req.body.postcode,
-    });
+    }
 
-    res.send(await user.save());
+    try {
+        let userCrud = new UserServiceCRUD();
+        let result = await userCrud.registerUser(user);
+        res.send(result);
+    } catch (ex) {
+
+        res.sendStatus(500).send(ex);
+    }
 });
 
 module.exports = userRoutes;
