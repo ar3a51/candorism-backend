@@ -1,13 +1,16 @@
 import express from 'express';
 
-import { UserModel }   from '../../models/users';
-import { PostModel }   from '../../models/posts';
+import {PostServiceCrud}       from '../../services/postServices/postCRUD';
+import {PostQueryService}                      from '../../services/postServices/postQuery';
+import { equal } from 'assert';
 
 const postRoutes = express.Router();
 
 postRoutes.get("/:id", async(req,res)=>{
-   let result = await PostModel.findById(req.params.id);
-
+ 
+    
+   let postQuery = new PostQueryService();
+   let result = await postQuery.getPostById(req.params.id);
    if (result)
     res.send(result);
    else
@@ -15,21 +18,18 @@ postRoutes.get("/:id", async(req,res)=>{
 });
 
 postRoutes.post("/", async(req,res)=>{
-    let user = UserModel.findById(req.body.userid);
-    if (user) {
-        let postModel = new PostModel({
-            user: {
-                username: user.username,
-                photoprofile: user.photoprofile,
-            },
+  
+    try {
+        let postCrud = new PostServiceCrud();
+        let post = {
+            username: req.body.username,
             message: req.body.message,
-            datetime: new Date,
-        });
+        }
 
-        res.send(await postModel.save());
+        res.send(await postCrud.insertPost(post)); 
+    } catch (ex) {
+        res.sendStatus(500).send(ex);
     }
-    else
-        res.sendStatus(404).send("User not found");
 });
 
 module.exports = postRoutes;

@@ -3,7 +3,7 @@ import { PostModel }                   from '../../models/posts';
 import { UserServiceQuery }       from '../userServices/userServiceQuery';
 
 
-export class PostQuery {
+export class PostQueryService {
 
     userQuery = null;
     constructor() {
